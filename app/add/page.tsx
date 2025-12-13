@@ -3,20 +3,11 @@
 import { useState } from "react";
 import { supabase } from "../../lib/supabase";
 
-type Referral = {
-  name: string;
-  category: string;
-  url: string;
-};
-
-/* =========================
-   CATEGORY OPTIONS
-   Must match homepage exactly
-   ========================= */
-
 const CATEGORIES = [
   "Shopping & Retail",
   "Credit Cards & Banking",
+  "Finance & Investing",
+  "Services & Utilities",
   "Travel & Lodging",
   "Food & Dining",
   "Fitness & Wellness",
@@ -31,23 +22,18 @@ export default function AddReferralPage() {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [category, setCategory] = useState(CATEGORIES[0]);
-  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
-    setSuccess(false);
 
     const { error } = await supabase.from("referrals").insert({
-      name: name.trim(),
-      url: url.trim(),
+      name,
+      url,
       category,
     });
-
-    setLoading(false);
 
     if (error) {
       setError("Something went wrong. Please try again.");
@@ -61,17 +47,17 @@ export default function AddReferralPage() {
   };
 
   return (
-    <main className="max-w-md mx-auto p-6 space-y-6 bg-[#FAF9F7] text-[#2E2E2E] min-h-screen">
+    <main className="max-w-md mx-auto p-6 space-y-6 bg-[#FAF9F7] min-h-screen">
       <h1 className="text-2xl font-bold">Add a Referral</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
-          placeholder="Referral name (e.g. Honeylove)"
+          placeholder="Referral name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="w-full border border-[#E2E0DC] p-3 rounded bg-white focus:outline-none focus:ring-2 focus:ring-[#6F8F7A]"
+          className="w-full border p-3 rounded"
         />
 
         <input
@@ -80,13 +66,13 @@ export default function AddReferralPage() {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           required
-          className="w-full border border-[#E2E0DC] p-3 rounded bg-white focus:outline-none focus:ring-2 focus:ring-[#6F8F7A]"
+          className="w-full border p-3 rounded"
         />
 
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="w-full border border-[#E2E0DC] p-3 rounded bg-white focus:outline-none focus:ring-2 focus:ring-[#6F8F7A]"
+          className="w-full border p-3 rounded"
         >
           {CATEGORIES.map((cat) => (
             <option key={cat} value={cat}>
@@ -95,21 +81,12 @@ export default function AddReferralPage() {
           ))}
         </select>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-[#6F8F7A] text-[#FAF9F7] py-3 rounded hover:bg-[#D07A5C] transition-colors disabled:opacity-50"
-        >
-          {loading ? "Adding..." : "Add Referral"}
+        <button className="w-full bg-[#6F8F7A] text-white py-3 rounded">
+          Add Referral
         </button>
       </form>
 
-      {success && (
-        <p className="text-[#6F8F7A] font-medium">
-          ✅ Referral added successfully
-        </p>
-      )}
-
+      {success && <p className="text-green-700">✅ Referral added</p>}
       {error && <p className="text-red-600">{error}</p>}
     </main>
   );
