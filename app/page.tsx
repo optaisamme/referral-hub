@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "../lib/supabase";
 
 type Referral = {
   name: string;
@@ -37,29 +38,43 @@ const CATEGORIES = [
 ];
 
 const CATEGORY_COLORS: Record<string, string> = {
-  "Shopping & Retail": "border-l-[#6F8F7A]",   // sage
-  "Credit Cards & Banking": "border-l-[#6FA3A0]", // green-teal
-  "Travel & Lodging": "border-l-[#6B8FA3]",    // dusty blue
-  "Food & Dining": "border-l-[#6B7FB8]",       // indigo-blue
-  "Fitness & Wellness": "border-l-[#8E7EB9]",  // violet
-  "Beauty & Personal Care": "border-l-[#B48EAD]", // rose-violet
-  "Technology & Apps": "border-l-[#C38CB4]",   // warm pink-violet
-  "Home & Lifestyle": "border-l-[#E3A08F]",    // coral
-  "Fashion & Accessories": "border-l-[#D07A5C]", // terracotta
-  "Subscriptions & Memberships": "border-l-[#A65A6E]", // rose-wine
+  "Shopping & Retail": "border-l-[#6F8F7A]",
+  "Credit Cards & Banking": "border-l-[#6FA3A0]",
+  "Travel & Lodging": "border-l-[#6B8FA3]",
+  "Food & Dining": "border-l-[#6B7FB8]",
+  "Fitness & Wellness": "border-l-[#8E7EB9]",
+  "Beauty & Personal Care": "border-l-[#B48EAD]",
+  "Technology & Apps": "border-l-[#C38CB4]",
+  "Home & Lifestyle": "border-l-[#E3A08F]",
+  "Fashion & Accessories": "border-l-[#D07A5C]",
+  "Subscriptions & Memberships": "border-l-[#A65A6E]",
 };
 
 export default function Home() {
   const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [brand, setBrand] = useState("");
+  const [email, setEmail] = useState("");
 
   const filtered = REFERRALS.filter((r) =>
     `${r.name} ${r.category}`.toLowerCase().includes(query.toLowerCase())
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    await supabase.from("referral_requests").insert({
+      brand,
+      email: email || null,
+      wants_notification: true,
+      notify_via_email: !!email,
+      notify_via_sms: false,
+      newsletter_opt_in: false,
+    });
+
     setSubmitted(true);
+    setBrand("");
+    setEmail("");
   };
 
   return (
@@ -119,12 +134,16 @@ export default function Home() {
             <input
               type="text"
               placeholder="Service name"
+              value={brand}
+              onChange={(e) => setBrand(e.target.value)}
               required
               className="w-full border border-[#E2E0DC] p-3 rounded bg-white focus:outline-none focus:ring-2 focus:ring-[#6F8F7A]"
             />
             <input
               type="email"
               placeholder="Your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full border border-[#E2E0DC] p-3 rounded bg-white focus:outline-none focus:ring-2 focus:ring-[#6F8F7A]"
             />
             <button className="bg-[#6F8F7A] text-[#FAF9F7] px-4 py-2 rounded hover:bg-[#D07A5C] transition-colors">
