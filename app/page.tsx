@@ -47,10 +47,16 @@ const CATEGORIES = [
 
 export default function Home() {
   const [query, setQuery] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const filtered = REFERRALS.filter((r) =>
     `${r.name} ${r.category}`.toLowerCase().includes(query.toLowerCase())
   );
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
 
   return (
     <main className="max-w-6xl mx-auto p-6 space-y-8">
@@ -64,14 +70,12 @@ export default function Home() {
         className="w-full border p-3 rounded"
       />
 
-      {/* Two-column grid */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {CATEGORIES.map((category) => {
           const items = filtered.filter(
             (r) => r.category === category
           );
 
-          // ✅ HIDE TABLE IF NO MATCHES
           if (items.length === 0) return null;
 
           return (
@@ -104,9 +108,29 @@ export default function Home() {
 
       <section className="border-t pt-6">
         <h2 className="text-xl font-semibold">Request a Referral</h2>
-        <p className="text-green-600 mt-4">
-          Thanks! Your request has been submitted.
-        </p>
+
+        {submitted ? (
+          <p className="text-green-600 mt-4">
+            Thanks! Your request has been submitted.
+          </p>
+        ) : (
+          <form className="space-y-3 mt-4" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Service name"
+              required
+              className="w-full border p-3 rounded"
+            />
+            <input
+              type="email"
+              placeholder="Your email"
+              className="w-full border p-3 rounded"
+            />
+            <button className="bg-black text-white px-4 py-2 rounded">
+              Submit Request
+            </button>
+          </form>
+        )}
       </section>
     </main>
   );
