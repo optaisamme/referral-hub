@@ -11,8 +11,7 @@ type Referral = {
 
 const CATEGORIES = [
   "Shopping & Retail",
-  "Credit Cards & Banking",
-  "Finance & Investing",
+  "Money & Finance",
   "Services & Utilities",
   "Travel & Lodging",
   "Food & Dining",
@@ -26,8 +25,7 @@ const CATEGORIES = [
 
 const CATEGORY_COLORS: Record<string, string> = {
   "Shopping & Retail": "border-l-[#6F8F7A]",
-  "Credit Cards & Banking": "border-l-[#6FA3A0]",
-  "Finance & Investing": "border-l-[#5F8D6A]",
+  "Money & Finance": "border-l-[#5F8D6A]",
   "Services & Utilities": "border-l-[#7C8FA3]",
   "Travel & Lodging": "border-l-[#6B8FA3]",
   "Food & Dining": "border-l-[#6B7FB8]",

@@ -5,8 +5,7 @@ import { supabase } from "../../lib/supabase";
 
 const CATEGORIES = [
   "Shopping & Retail",
-  "Credit Cards & Banking",
-  "Finance & Investing",
+  "Money & Finance",
   "Services & Utilities",
   "Travel & Lodging",
   "Food & Dining",
