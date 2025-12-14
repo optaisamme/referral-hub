@@ -1,3 +1,75 @@
+Project Overview
+This repository contains the code for Referral Hub, a personal referral‑link website built with Next.js (App Router) and deployed on Vercel.
+
+The site’s purpose is intentionally narrow:
+
+Provide a clean, searchable list of referral links
+Allow visitors to request new referral links
+Serve as a lightweight personal utility, not a commercial SaaS product
+The live site is hosted at:
+
+https://referrals.arieltypes.com
+
+Scope & Intent
+This is a real production website, not a demo or tutorial project.
+
+Key design principles:
+
+-Incremental, intentional changes only
+-Stability over refactors
+-Clarity over abstraction
+-Simple solutions preferred over complex ones
+
+This project prioritizes:
+
+reliability
+ease of maintenance
+minimal surface area for bugs
+What This Project Is
+A single‑purpose referral hub
+A personal project with limited feature scope
+A Next.js App Router application
+Deployed via Vercel with environment‑based configuration
+
+What This Project Is NOT
+-A full authentication system
+-A multi‑tenant platform
+-A generalized CMS
+-A playground for large‑scale refactors
+
+Features are added only when there is a clear, concrete need.
+
+Environment & Deployment Notes
+
+This project uses environment variables for configuration
+Client‑side variables are prefixed with NEXT_PUBLIC_
+Production deployments are handled automatically by Vercel
+
+There is a clear distinction between:
+
+local development
+preview deployments
+production
+
+Changes should always be tested locally before deployment.
+
+Current Status
+The project is stable and live.
+
+Future work may include:
+
+small UX improvements
+minor content updates
+optional enhancements driven by real usage
+There is no roadmap for aggressive expansion.
+
+Technical Stack
+Next.js (App Router)
+React
+Tailwind CSS
+Supabase (for data persistence)
+Vercel (deployment)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
