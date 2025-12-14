@@ -1,4 +1,5 @@
-Project Overview
+## Project Overview
+
 This repository contains the code for Referral Hub, a personal referral‑link website built with Next.js (App Router) and deployed on Vercel.
 
 The site’s purpose is intentionally narrow:
