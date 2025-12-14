@@ -121,6 +121,8 @@ export default function Home() {
                     <span>{ref.name}</span>
                     <a
                       href={ref.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-sm text-[#4F7F67] underline"
                     >
                       Use referral
