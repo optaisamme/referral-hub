@@ -41,6 +41,11 @@ export default function Home() {
   const [referrals, setReferrals] = useState<Referral[]>([]);
   const [query, setQuery] = useState("");
 
+  // Request form state
+  const [brand, setBrand] = useState("");
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
   useEffect(() => {
     const fetchReferrals = async () => {
       const { data } = await supabase
@@ -57,6 +62,23 @@ export default function Home() {
     `${r.name} ${r.category}`.toLowerCase().includes(query.toLowerCase())
   );
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    await supabase.from("referral_requests").insert({
+      brand,
+      email: email || null,
+      wants_notification: true,
+      notify_via_email: !!email,
+      notify_via_sms: false,
+      newsletter_opt_in: false,
+    });
+
+    setSubmitted(true);
+    setBrand("");
+    setEmail("");
+  };
+
   return (
     <main className="max-w-6xl mx-auto p-6 space-y-8 bg-[#FAF9F7] text-[#2E2E2E]">
       <h1 className="text-3xl font-bold">My Referral Links</h1>
@@ -69,6 +91,7 @@ export default function Home() {
         className="w-full border border-[#E2E0DC] p-3 rounded bg-white"
       />
 
+      {/* Referral tables */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {CATEGORIES.map((category) => {
           const items = filtered.filter((r) => r.category === category);
@@ -100,6 +123,38 @@ export default function Home() {
             </div>
           );
         })}
+      </section>
+
+      {/* Request a Referral */}
+      <section className="border-t border-[#E2E0DC] pt-6">
+        <h2 className="text-xl font-semibold">Request a Referral</h2>
+
+        {submitted ? (
+          <p className="mt-4 text-[#6F8F7A]">
+            Thanks! Your request has been submitted.
+          </p>
+        ) : (
+          <form className="space-y-3 mt-4" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Service name"
+              value={brand}
+              onChange={(e) => setBrand(e.target.value)}
+              required
+              className="w-full border border-[#E2E0DC] p-3 rounded bg-white"
+            />
+            <input
+              type="email"
+              placeholder="Your email (optional)"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-[#E2E0DC] p-3 rounded bg-white"
+            />
+            <button className="bg-[#6F8F7A] text-white px-4 py-2 rounded hover:bg-[#D07A5C]">
+              Submit Request
+            </button>
+          </form>
+        )}
       </section>
     </main>
   );
