@@ -64,11 +64,17 @@ optional enhancements driven by real usage
 There is no roadmap for aggressive expansion.
 
 Technical Stack
+
 Next.js (App Router)
+
 React
+
 Tailwind CSS
+
 Supabase (for data persistence)
+
 Vercel (deployment)
+
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
