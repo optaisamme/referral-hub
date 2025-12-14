@@ -94,7 +94,15 @@ export default function Home() {
       {/* Referral tables */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {CATEGORIES.map((category) => {
-          const items = filtered.filter((r) => r.category === category);
+          const items = filtered
+            .filter((r) => r.category === category)
+            .slice()
+            .sort((a, b) =>
+              a.name.localeCompare(b.name, undefined, {
+                sensitivity: "base",
+              })
+            );
+
           if (items.length === 0) return null;
 
           return (
@@ -104,7 +112,6 @@ export default function Home() {
             >
               <h2 className="font-semibold text-lg mb-3">{category}</h2>
 
-              {/* Scrollable content with visible scrollbar */}
               <div className="flex-1 overflow-y-auto space-y-2 pr-2 referral-scroll">
                 {items.map((ref) => (
                   <div
