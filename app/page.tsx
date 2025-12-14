@@ -104,7 +104,8 @@ export default function Home() {
             >
               <h2 className="font-semibold text-lg mb-3">{category}</h2>
 
-              <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+              {/* Scrollable content with visible scrollbar */}
+              <div className="flex-1 overflow-y-auto space-y-2 pr-2 referral-scroll">
                 {items.map((ref) => (
                   <div
                     key={ref.name}
@@ -156,6 +157,27 @@ export default function Home() {
           </form>
         )}
       </section>
+
+      {/* Scrollbar styling */}
+      <style jsx global>{`
+        .referral-scroll::-webkit-scrollbar {
+          width: 10px;
+        }
+
+        .referral-scroll::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 6px;
+        }
+
+        .referral-scroll::-webkit-scrollbar-thumb {
+          background: #b8b8b8;
+          border-radius: 6px;
+        }
+
+        .referral-scroll::-webkit-scrollbar-thumb:hover {
+          background: #9a9a9a;
+        }
+      `}</style>
     </main>
   );
 }
