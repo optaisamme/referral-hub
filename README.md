@@ -6,62 +6,95 @@ Current Status
 
 -The project is stable and live.
 
+
 Technical Stack
 
 -Next.js (App Router)
+
 -React
+
 -Tailwind CSS
+
 -Supabase (for data persistence)
+
 -Vercel (deployment)
+
 
 Future work may include:
 
 -small UX improvements
+
 -minor content updates
--optional enhancements driven by real usage
+
+-automated email and SMS notifications for code requests
+
+-the ability to add codes directly over email or text
+
+-automated email or SMS updates to users who request codes
+
 
 There is no roadmap for aggressive expansion.
 
 The site’s purpose is intentionally narrow:
 
 -Provide a clean, searchable list of referral links
+
 -Allow visitors to request new referral links
+
 -Serve as a lightweight personal utility, not a commercial SaaS product
+
 
 The live site is hosted at:
 
 https://referrals.arieltypes.com
 
+
 Scope & Intent
 
 This is a real production website, not a demo or tutorial project.
 
+
 Key design principles:
 
 -Incremental, intentional changes only
+
 -Stability over refactors
+
 -Clarity over abstraction
+
 -Simple solutions preferred over complex ones
+
 
 This project prioritizes:
 
 -reliability
+
 -ease of maintenance
+
 -minimal surface area for bugs
+
 
 What this project is:
 
 -A single‑purpose referral hub
+
 -A personal project with limited feature scope
+
 -A Next.js App Router application
+
 -Deployed via Vercel with environment‑based configuration
+
 
 What this project is NOT:
 
 -A full authentication system
+
 -A multi‑tenant platform
+
 -A generalized CMS
+
 -A playground for large‑scale refactors
+
 
 Features are added only when there is a clear, concrete need.
 
